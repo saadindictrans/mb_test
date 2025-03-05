@@ -1,0 +1,27 @@
+name: Ruff Linter Check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main  # or whichever branches you want to lint
+
+jobs:
+  ruff:
+    name: Run Ruff Linter
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'  # Adjust to the Python version used in your app
+
+      - name: Install Ruff
+        run: pip install ruff
+
+      - name: Run Ruff linter
+        run: ruff check .
