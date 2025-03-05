@@ -9,6 +9,8 @@ def assesment_renderer(quiz_name, lms_batch):
 		)
 		+"</div>"
 
+
+
 	quiz = frappe.db.get_value("Assessment",quiz_name,["name","title","max_attempts","show_answers","show_submission_history","passing_percentage","heading","video_id","time","likert_scale",],as_dict=True,)
 	quiz.questions = []
 	fields = ["name", "question", "type", "multiple", "required_explanation"]
@@ -22,8 +24,7 @@ def assesment_renderer(quiz_name, lms_batch):
 		"Assessment Quiz Question",
 		filters={"parent": quiz.name},
 		fields=["question", "marks"],
-		order_by="idx",
-	)
+		order_by="idx",)
 
 	for question in questions:
 		details = frappe.db.get_value("Assessment Question", question.question, fields, as_dict=1)
