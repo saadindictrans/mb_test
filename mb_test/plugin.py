@@ -27,11 +27,9 @@ def assesment_renderer(quiz_name, lms_batch):
 		details["marks"] = question.marks
 		quiz.questions.append(details)
 
-	no_of_attempts = frappe.db.get_value(
-		"Assessment Submission",
+	no_of_attempts = frappe.db.get_value("Assessment Submission",
 		{"member": frappe.session.user, "quiz": quiz_name, "lms_batch": lms_batch},
-		["no_of_attempts"],
-	)
+		["no_of_attempts"],)
 	if not no_of_attempts:
 		no_of_attempts = 0
 
