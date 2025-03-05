@@ -1,7 +1,7 @@
 name: Ruff Linter Check
 
 on:
-  pull_request:
+  pull_request_target:
   push:
     branches:
       - main  # or whichever branches you want to lint
