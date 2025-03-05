@@ -20,11 +20,7 @@ def assesment_renderer(quiz_name, lms_batch):
 		fields.append(f"explanation_{num}")
 		fields.append(f"possibility_{num}")
 
-	questions = frappe.get_all(
-		"Assessment Quiz Question",
-		filters={"parent": quiz.name},
-		fields=["question", "marks"],
-		order_by="idx",)
+	questions = frappe.get_all("Assessment Quiz Question",filters={"parent": quiz.name},fields=["question", "marks"],order_by="idx",)
 
 	for question in questions:
 		details = frappe.db.get_value("Assessment Question", question.question, fields, as_dict=1)
