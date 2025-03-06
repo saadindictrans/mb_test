@@ -1,19 +1,13 @@
 repos:
-  - repo: https://github.com/psf/black
-    rev: 23.3.0  # Update this revision as needed
-    hooks:
-      - id: black
-        language_version: python3.10
-
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.241  # Update this revision as needed
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.2.0
     hooks:
       - id: ruff
+        name: "Run ruff import sorter"
+        args: ["--select=I", "--fix"]
 
-  - repo: local
-    hooks:
-      - id: check-tabs
-        name: Check for Tab Characters
-        entry: bash -c "grep -R --include='*.py' -n $'\t' . && (echo 'Tab characters found! Please use spaces only.' && exit 1) || echo 'No tab characters found.'"
-        language: system
-        types: [python]
+      - id: ruff
+        name: "Run ruff linter"
+
+      - id: ruff-format
+        name: "Run ruff formatter"
