@@ -9,7 +9,23 @@ def assesment_renderer(quiz_name, lms_batch):
         )
         +"</div>"
 
-    quiz = frappe.db.get_value("Assessment",quiz_name,["name","title","max_attempts","show_answers","show_submission_history","passing_percentage","heading","video_id","time","likert_scale",],as_dict=True,)
+    quiz = frappe.db.get_value(
+        "Assessment",
+        quiz_name,
+        [
+            "name",
+            "title",
+            "max_attempts",
+            "show_answers",
+            "show_submission_history",
+            "passing_percentage",
+            "heading",
+            "video_id",
+            "time",
+            "likert_scale",
+        ],
+        as_dict=True,
+    )
     quiz.questions = []
     fields = ["name", "question", "type", "multiple", "required_explanation"]
     for num in range(1, 11):
