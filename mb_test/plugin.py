@@ -9,7 +9,23 @@ def assesment_renderer(quiz_name, lms_batch):
         )
         +"</div>"
 
-    quiz = frappe.db.get_value("Assessment",quiz_name,["name","title","max_attempts","show_answers","show_submission_history","passing_percentage","heading","video_id","time","likert_scale",],as_dict=True,)
+    quiz = frappe.db.get_value(
+        "Assessment",
+        quiz_name,
+        [
+            "name",
+            "title",
+            "max_attempts",
+            "show_answers",
+            "show_submission_history",
+            "passing_percentage",
+            "heading",
+            "video_id",
+            "time",
+            "likert_scale",
+        ],
+        as_dict=True,
+    )
     quiz.questions = []
     fields = ["name", "question", "type", "multiple", "required_explanation"]
     for num in range(1, 11):
@@ -26,7 +42,9 @@ def assesment_renderer(quiz_name, lms_batch):
     )
 
     for question in questions:
-        details = frappe.db.get_value("Assessment Question", question.question, fields, as_dict=1)
+        details = frappe.db.get_value(
+            "Assessment Question", question.question, fields, as_dict=1
+        )
         details["marks"] = question.marks
         quiz.questions.append(details)
 
@@ -54,7 +72,9 @@ def assesment_renderer(quiz_name, lms_batch):
         {
             "quiz": quiz,
             "no_of_attempts": no_of_attempts,
-            "all_submissions": all_submissions if quiz.show_submission_history else None,
+            "all_submissions": all_submissions
+            if quiz.show_submission_history
+            else None,
             "hide_quiz": False,
             "lms_batch": lms_batch,
         },
@@ -74,7 +94,10 @@ def summary_renderer(name):
             ["title", "question", "instructors_comments"],
         )
 
-        if frappe.db.exists("Summary Submission", {"member": frappe.session.user, "lesson": name}):
+        if frappe.db.exists(
+            "Summary Submission", {
+                "member": frappe.session.user, "lesson": name}
+        ):
             have_answer = 1
             answer = frappe.db.get_value(
                 "Summary Submission",
