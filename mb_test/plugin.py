@@ -9,9 +9,23 @@ def assesment_renderer(quiz_name, lms_batch):
 		)
 		+"</div>"
 
-
-
-	quiz = frappe.db.get_value("Assessment",quiz_name,["name","title","max_attempts","show_answers","show_submission_history","passing_percentage","heading","video_id","time","likert_scale",],as_dict=True,)
+	quiz = frappe.db.get_value(
+		"Assessment",
+		quiz_name,
+		[
+			"name",
+			"title",
+			"max_attempts",
+			"show_answers",
+			"show_submission_history",
+			"passing_percentage",
+			"heading",
+			"video_id",
+			"time",
+			"likert_scale",
+		],
+		as_dict=True,
+	)
 	quiz.questions = []
 	fields = ["name", "question", "type", "multiple", "required_explanation"]
 	for num in range(1, 11):
@@ -20,26 +34,47 @@ def assesment_renderer(quiz_name, lms_batch):
 		fields.append(f"explanation_{num}")
 		fields.append(f"possibility_{num}")
 
-	questions = frappe.get_all("Assessment Quiz Question",filters={"parent": quiz.name},fields=["question", "marks"],order_by="idx",)
+	questions = frappe.get_all(
+		"Assessment Quiz Question",
+		filters={"parent": quiz.name},
+		fields=["question", "marks"],
+		order_by="idx",
+	)
 
 	for question in questions:
 		details = frappe.db.get_value("Assessment Question", question.question, fields, as_dict=1)
 		details["marks"] = question.marks
 		quiz.questions.append(details)
 
-	no_of_attempts = frappe.db.get_value("Assessment Submission",{"member": frappe.session.user, "quiz": quiz_name, "lms_batch": lms_batch},["no_of_attempts"],)
+	no_of_attempts = frappe.db.get_value(
+		"Assessment Submission",
+		{"member": frappe.session.user, "quiz": quiz_name, "lms_batch": lms_batch},
+		["no_of_attempts"],
+	)
 	if not no_of_attempts:
 		no_of_attempts = 0
 
 	if quiz.show_submission_history:
-		all_submissions = frappe.get_all("Assessment Submission",{"quiz": quiz.name,"member": frappe.session.user,},["name", "score", "creation"],order_by="creation desc",)
+		all_submissions = frappe.get_all(
+			"Assessment Submission",
+			{
+				"quiz": quiz.name,
+				"member": frappe.session.user,
+			},
+			["name", "score", "creation"],
+			order_by="creation desc",
+		)
 
-	return frappe.render_template("templates/macro/assessment.html",{
+	return frappe.render_template(
+		"templates/macro/assessment.html",
+		{
 			"quiz": quiz,
 			"no_of_attempts": no_of_attempts,
 			"all_submissions": all_submissions if quiz.show_submission_history else None,
 			"hide_quiz": False,
-			"lms_batch": lms_batch,},)
+			"lms_batch": lms_batch,
+		},
+	)
 
 
 def summary_renderer(name):
@@ -51,7 +86,9 @@ def summary_renderer(name):
 		have_question = 1
 		title, question, instructors = frappe.db.get_value(
 			"Summary",
-			{"course_lesson": name},["title", "question", "instructors_comments"],)
+			{"course_lesson": name},
+			["title", "question", "instructors_comments"],
+		)
 
 		if frappe.db.exists("Summary Submission", {"member": frappe.session.user, "lesson": name}):
 			have_answer = 1
