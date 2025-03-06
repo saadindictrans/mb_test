@@ -8,6 +8,3 @@ repos:
 
       - id: ruff
         name: "Run ruff linter"
-
-      - id: ruff-format
-        name: "Run ruff formatter"
