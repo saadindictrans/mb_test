@@ -27,6 +27,7 @@ def assesment_renderer(quiz_name, lms_batch):
 		],
 		as_dict=True,
 	)
+
 	quiz.questions = []
 	fields = ["name", "question", "type", "multiple", "required_explanation"]
 	for num in range(1, 11):
@@ -144,6 +145,3 @@ def make_summary_submission(lesson, answer):
 		frappe.db.commit()
 
 		return True
-
-
-# mb_fxlh.patches.zoom_user_for_youth_master
