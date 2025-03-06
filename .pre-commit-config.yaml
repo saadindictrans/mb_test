@@ -14,3 +14,9 @@ repos:
 
       - id: ruff-format
         name: "Run ruff formatter"
+        
+  - repo: https://github.com/adityahase/black
+    rev: 9cb0a69f4d0030cdf687eddf314468b39ed54119
+    hooks:
+      - id: black
+        additional_dependencies: ['click==8.0.4']
