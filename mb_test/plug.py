@@ -4,10 +4,11 @@ from frappe import _
 
 def assesment_renderer(quiz_name, lms_batch):
 	if frappe.session.user == "Guest":
-		return " <div class='alert alert-info'>" + _(
-			"Quiz is not available to Guest users. Please login to continue."
+		return (
+			" <div class='alert alert-info'>"
+			+ _("Quiz is not available to Guest users. Please login to continue.")
+			+ "</div>"
 		)
-		+"</div>"
 
 	quiz = frappe.db.get_value(
 		"Assessment",
@@ -26,6 +27,7 @@ def assesment_renderer(quiz_name, lms_batch):
 		],
 		as_dict=True,
 	)
+
 	quiz.questions = []
 	fields = ["name", "question", "type", "multiple", "required_explanation"]
 	for num in range(1, 11):
