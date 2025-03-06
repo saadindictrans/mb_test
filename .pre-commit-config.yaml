@@ -3,6 +3,8 @@ repos:
     rev: v0.8.1
     hooks:
       - id: ruff
+
+      - id: ruff
         name: "Run ruff import sorter"
         args: ["--select=I", "--fix"]
 
