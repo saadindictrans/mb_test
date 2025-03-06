@@ -139,10 +139,5 @@ def make_summary_submission(lesson, answer):
 			ignore_if_duplicate=True,  # dont insert if DuplicateEntryError is thrown
 			ignore_mandatory=True,  # insert even if mandatory fields are not set
 		)
-
 		frappe.db.commit()
-
 		return True
-
-
-# mb_fxlh.patches.zoom_user_for_youth_master
