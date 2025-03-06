@@ -26,15 +26,11 @@ line-length = 110
 target-version = "py310"
 
 [tool.ruff.lint]
-select = [
-    "F",
-    "E",
-    "W",
-    "I",
-    "UP",
-    "B",
-    "RUF",
-]
+select = ["E", "F", "W", "C90"]  # Customize these codes as needed
+
+
+
+
 
 [tool.ruff.format]
 quote-style = "double"
