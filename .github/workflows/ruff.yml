@@ -1,27 +1,47 @@
-name: Ruff Linter Check
+name: Code Quality Checks
 
 on:
-  pull_request:
   push:
-    branches:
-      - main  # or whichever branches you want to lint
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  ruff:
-    name: Run Ruff Linter
+  lint_and_indentation_check:
+    name: Lint and Indentation Check
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'  # Adjust to the Python version used in your app
+          python-version: '3.9'
 
-      - name: Install Ruff
+      - name: Install Dependencies
         run: pip install ruff
 
-      - name: Run Ruff linter
+      - name: Run Ruff Linter
         run: ruff check .
+
+  frappe_linter:
+    name: Frappe Linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Download Semgrep rules
+        run: git clone --depth 1 https://github.com/frappe/semgrep-rules.git frappe-semgrep-rules
+
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      - name: Run Semgrep rules
+        run: semgrep ci --config ./frappe-semgrep-rules/rules
