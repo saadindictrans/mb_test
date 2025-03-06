@@ -34,16 +34,12 @@ def assesment_renderer(quiz_name, lms_batch):
 	if quiz.show_submission_history:
 		all_submissions = frappe.get_all("Assessment Submission",{"quiz": quiz.name,"member": frappe.session.user,},["name", "score", "creation"],order_by="creation desc",)
 
-	return frappe.render_template(
-		"templates/macro/assessment.html",
-		{
+	return frappe.render_template("templates/macro/assessment.html",{
 			"quiz": quiz,
 			"no_of_attempts": no_of_attempts,
 			"all_submissions": all_submissions if quiz.show_submission_history else None,
 			"hide_quiz": False,
-			"lms_batch": lms_batch,
-		},
-	)
+			"lms_batch": lms_batch,},)
 
 
 def summary_renderer(name):
