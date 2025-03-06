@@ -23,9 +23,7 @@ def assesment_renderer(quiz_name, lms_batch):
             "video_id",
             "time",
             "likert_scale",
-        ],
-        as_dict=True,
-    )
+        ],as_dict=True,)
     quiz.questions = []
     fields = ["name", "question", "type", "multiple", "required_explanation"]
     for num in range(1, 11):

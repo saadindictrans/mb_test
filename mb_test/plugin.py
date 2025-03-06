@@ -51,9 +51,7 @@ def summary_renderer(name):
 		have_question = 1
 		title, question, instructors = frappe.db.get_value(
 			"Summary",
-			{"course_lesson": name},
-			["title", "question", "instructors_comments"],
-		)
+			{"course_lesson": name},["title", "question", "instructors_comments"],)
 
 		if frappe.db.exists("Summary Submission", {"member": frappe.session.user, "lesson": name}):
 			have_answer = 1
