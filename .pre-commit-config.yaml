@@ -1,20 +1,4 @@
 repos:
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.8.1
-    hooks:
-      - id: ruff
-        args: ["--fix"]
-
-      - id: ruff
-        name: "Run ruff import sorter"
-        args: ["--select=I", "--fix"]
-
-      - id: ruff
-        name: "Run ruff linter"
-
-      - id: ruff-format
-        name: "Run ruff formatter"
-        
   - repo: https://github.com/adityahase/black
     rev: 9cb0a69f4d0030cdf687eddf314468b39ed54119
     hooks:

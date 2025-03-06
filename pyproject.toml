@@ -21,21 +21,6 @@ build-backend = "flit_core.buildapi"
 
 
 
-[tool.ruff]
-line-length = 110
-target-version = "py310"
-
-[tool.ruff.lint]
-select = ["E", "F", "W", "C90"]  # Customize these codes as needed
-
-
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
-docstring-code-format = true
-
-
-
 [tool.isort]
 multi_line_output = 3
 include_trailing_comma = true
