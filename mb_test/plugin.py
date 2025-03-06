@@ -73,8 +73,7 @@ def assesment_renderer(quiz_name, lms_batch):
 			"all_submissions": all_submissions if quiz.show_submission_history else None,
 			"hide_quiz": False,
 			"lms_batch": lms_batch,
-		},
-	)
+		},)
 
 
 def summary_renderer(name):
